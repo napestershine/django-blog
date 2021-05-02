@@ -8,4 +8,11 @@
 6. do you have any idea how could I check on the comment? if it has a forbidden word in it? and turn it to (#$%@)? => You need a profanity algorithm in place for that.
 7. How can I submit more than one comment without reloading the page? => ajax
 8. how to add thumbnail image in home page and related post ?
-9. 
+
+
+## Links
+https://djangocentral.com/django-ajax-with-jquery/
+
+https://forum.djangoproject.com/t/automatically-add-a-category-to-a-blog-post/5172
+
+https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi
