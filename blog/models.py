@@ -7,14 +7,44 @@ STATUS = (
 )
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    slug = models.CharField(max_length=200, unique=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_categories')
+    updated_on = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=200, unique=True)
+    slug = models.CharField(max_length=200, unique=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_tags')
+    updated_on = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-    created_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='blog_posts_categories',
+        null=True,
+        blank=True
+    )
+    tags = models.ManyToManyField(Tag)
 
     class Meta:
         ordering = ['-created_on']

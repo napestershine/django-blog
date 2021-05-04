@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 
-from .models import Post, Comment
+from .models import Post, Comment, Category, Tag
 
 
 class PostAdmin(SummernoteModelAdmin):
@@ -23,5 +23,21 @@ class CommentAdmin(admin.ModelAdmin):
         queryset.update(active=True)
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'author')
+    list_filter = ("created_on", 'updated_on')
+    search_fields = ['name', ]
+    prepopulated_fields = {'slug': ('name',)}
+
+
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name', 'author')
+    list_filter = ("name",)
+    search_fields = ['name', ]
+    prepopulated_fields = {'slug': ('name',)}
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag, TagAdmin)
