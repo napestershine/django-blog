@@ -12,5 +12,3 @@ urlpatterns = [
     path('feed/rss', LatestPostFeed(), name='post_feed'),
     path('feed/atom', AtomSiteNewsFeed()),
 ]
-
-bcvjhv
