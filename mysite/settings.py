@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_summernote',
     'django.contrib.sitemaps',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

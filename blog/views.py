@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Post
+from .models import Post, Category, Tag
 from .forms import CommentForm
 
 
@@ -50,4 +50,26 @@ def post_detail(request, slug):
         'comments': comments,
         'new_comment': new_comment,
         'comment_form': comment_form
+    })
+
+
+def posts_by_category(request, slug):
+    template_name = 'post_by_category.html'
+    category = get_object_or_404(Category, slug=slug)
+    posts = Post.objects.filter(category__slug=slug)
+
+    return render(request, template_name, {
+        'posts': posts,
+        'category': category
+    })
+
+
+def posts_by_tag(request, slug):
+    template_name = 'post_by_tag.html'
+    tag = get_object_or_404(Tag, slug=slug)
+    posts = Post.objects.filter(tags__name=tag)
+
+    return render(request, template_name, {
+        'posts': posts,
+        'tag': tag
     })
