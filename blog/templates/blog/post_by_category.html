@@ -56,9 +56,9 @@
             </div>
 
             {% block sidebar %}
-                {% include 'sidebar.html' %}
+                {% include 'blog/sidebar.html' %}
             {% endblock sidebar %}
-            {% include 'pagination.html' with page=posts %}
+            {% include 'blog/pagination.html' with page=posts %}
         </div>
     </div>
 {% endblock %}
