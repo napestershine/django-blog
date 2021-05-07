@@ -10,6 +10,7 @@ class PostAdmin(SummernoteModelAdmin):
     list_filter = ("status", "created_on", "updated_on")
     search_fields = ['title', 'content']
     prepopulated_fields = {'slug': ('title',)}
+    date_hierarchy = 'published_on'
 
     summernote_fields = ('content',)
 

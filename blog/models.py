@@ -2,10 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-STATUS = (
-    (0, "Draft"),
-    (1, "Publish")
-)
+
+# Creating model manager
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status=1)
 
 
 class Category(models.Model):
@@ -31,6 +32,11 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    STATUS = (
+        (0, "Draft"),
+        (1, "Publish")
+    )
+
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
@@ -51,13 +57,16 @@ class Post(models.Model):
     class Meta:
         ordering = ['-published_on']
 
+    objects = models.Manager()  # The default manager
+    published = PublishedManager()  # Our custom manager
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         from django.urls import reverse
 
-        return reverse('post_detail', kwargs={'slug': str(self.slug)})
+        return reverse('blog:post_detail', kwargs={'slug': str(self.slug)})
 
 
 class Comment(models.Model):

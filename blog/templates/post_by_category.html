@@ -30,12 +30,12 @@
                             <a class="card-text text-muted h6">
                                 by <a href="#">{{ post.author }}</a> |
                                 {{ post.created_on|naturaltime }} |
-                                <a href="{% url 'post_detail' post.slug %}">{{ post.comments.count }}
+                                <a href="{% url 'blog:post_detail' post.slug %}">{{ post.comments.count }}
                                     comments</a>
                             </p>
 
                             <p class="card-text">{{ post.content|safe|striptags|slice:":200" }}</p>
-                            <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary">Read More &rarr;</a>
+                            <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-primary">Read More &rarr;</a>
                             <br/>
                             Category: <a href="#">{{ post.category }}</a>
                             <br/>

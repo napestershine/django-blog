@@ -6,8 +6,8 @@ from .forms import CommentForm
 
 
 def post_list(request):
-    posts = Post.objects.all()
-    template_name = 'index.html'
+    posts = Post.published.all()
+    template_name = 'blog/index.html'
 
     paginator = Paginator(posts, 3)  # 3 posts in each page
     page = request.GET.get('page')
@@ -28,8 +28,8 @@ def post_list(request):
 
 
 def post_detail(request, slug):
-    template_name = 'post_detail.html'
-    post = get_object_or_404(Post, slug=slug)
+    template_name = 'blog/post_detail.html'
+    post = get_object_or_404(Post, slug=slug, status=1)
     comments = post.comments.filter(active=True).order_by('-created_on')
     new_comment = None
     # Comment posted
@@ -54,7 +54,7 @@ def post_detail(request, slug):
 
 
 def posts_by_category(request, slug):
-    template_name = 'post_by_category.html'
+    template_name = 'blog/post_by_category.html'
     category = get_object_or_404(Category, slug=slug)
     posts = Post.objects.filter(category__slug=slug)
 
@@ -65,7 +65,7 @@ def posts_by_category(request, slug):
 
 
 def posts_by_tag(request, slug):
-    template_name = 'post_by_tag.html'
+    template_name = 'blog/post_by_tag.html'
     tag = get_object_or_404(Tag, slug=slug)
     posts = Post.objects.filter(tags__name=tag)
 

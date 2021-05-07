@@ -9,6 +9,7 @@
 7. How can I submit more than one comment without reloading the page? => ajax
 8. how to add thumbnail image in home page and related post ?
 9. Post scheduling
+10. User functionality
 
 ## Links
 https://djangocentral.com/django-ajax-with-jquery/
@@ -20,3 +21,5 @@ https://www.youtube.com/playlist?list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi
 https://www.codesnail.com/designing-the-blog-data-schema-django-blog-2/
 
 https://overiq.com/django-1-10/django-orm-basics/
+
+https://www.youtube.com/playlist?list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p
