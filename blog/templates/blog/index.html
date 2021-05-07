@@ -24,35 +24,37 @@
             <div class="col-md-8 mt-3 left">
                 {% for post in posts %}
                     <!-- Blog Post -->
-                    <div class="card mb-4">
+                    <div class="card mb-3">
                         <div class="card-body">
-                            <h2 class="card-title">{{ post.title }}</h2>
-                            <a class="card-text text-muted h6">
-                                by <a href="#">{{ post.author }}</a> |
-                                {{ post.created_on|naturaltime }} |
-                                <a href="{% url 'blog:post_detail' post.slug %}">{{ post.comments.count }}
-                                    comments</a>
-                            </p>
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <div class="ration ratio-16x9">
+                                        <img src="https://via.placeholder.com/250x250" class="rounded"
+                                             alt="{{ post.title }}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-7 ps-md-3 pt-3 pt-md-0 flex-column">
 
-                            <p class="card-text">{{ post.content|safe|striptags|slice:":200" }}</p>
-                            <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-primary">Read More &rarr;</a>
-                            <br/>
-                            Category: <a href="{% url 'blog:posts_by_category' post.category.slug %}">{{ post.category }}</a>
-                            <br/>
-                            Tags:
-                            {% for tag in post.tags.all %}
-                                <a href="{% url 'blog:posts_by_tag' tag.slug %}">{{ tag.name }}</a>
-                            {% empty %}
-                                none
-                            {% endfor %}
+
+                                    <h2 class="card-title">{{ post.title }}</h2>
+                                    <p class="card-text text-muted h6">
+                                       {{ post.created_on|naturaltime }} | published by <a href="#">{{ post.author }}</a> in
+                                         <a
+                                        href="{% url 'blog:posts_by_category' post.category.slug %}">{{ post.category }}</a> |
+                                        <a href="{% url 'blog:post_detail' post.slug %}">{{ post.comments.count }}
+                                            comments</a>
+                                    </p>
+
+                                    <p class="card-text">{{ post.content|safe|striptags|slice:":200" }}</p>
+                                    <a href="{% url 'blog:post_detail' post.slug %}" class="btn btn-primary">Read More
+                                        &rarr;</a>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-
                 {% empty %}
                     <h1>OOps..! Noting Found</h1>
                 {% endfor %}
-
             </div>
 
             {% block sidebar %}
