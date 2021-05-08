@@ -45,6 +45,7 @@ class Post(models.Model):
     published_on = models.DateTimeField(default=timezone.now)
     content = models.TextField()
     status = models.IntegerField(choices=STATUS, default=0)
+    image = models.ImageField(upload_to='images/featured/%Y/%m/%d/')
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
@@ -74,7 +75,9 @@ class Comment(models.Model):
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)
 
     class Meta:
@@ -82,3 +85,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+    def get_comments(self):
+        return Comment.objects.filter(parent=self).filter(active=True)

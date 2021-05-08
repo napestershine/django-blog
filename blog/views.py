@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Comment
 from .forms import CommentForm
 
 
@@ -51,6 +51,26 @@ def post_detail(request, slug):
         'new_comment': new_comment,
         'comment_form': comment_form
     })
+
+
+def reply_page(request):
+    if request.method == 'POST':
+
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            post_id = request.POST.get('post_id')
+            parent_id = request.POST.get('parent')
+            post_url = request.POST.get('post_url')
+
+            reply = form.save(commit=False)
+
+            reply.post = Post(id=post_id)
+            reply.parent = Comment(id=parent_id)
+            reply.save()
+
+            return redirect(post_url)
+        return redirect('/')
 
 
 def posts_by_category(request, slug):

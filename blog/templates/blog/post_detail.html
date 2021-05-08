@@ -7,9 +7,9 @@
         <div class="row">
             <div class="col-md-8 card mb-4  mt-3 left  top">
                 <div class="card-body">
-                <figure>
-         <img src="https://via.placeholder.com/700x400" class="rounded" alt="{{post.title}}">
-        </figure>
+                    <figure>
+                        <img src="https://via.placeholder.com/700x400" class="rounded" alt="{{ post.title }}">
+                    </figure>
                     <h1> {% block title %} {{ post.title }} {% endblock title %}</h1>
 
                     <p class=" text-muted">
@@ -19,32 +19,29 @@
                     </p>
 
                     <p class="card-text ">{{ post.content | safe }}</p>
-                            Tags:
-                            {% for tag in post.tags.all %}
-                                <a href="#">{{ tag.name }}</a>
-                            {% empty %}
-                                none
-                            {% endfor %}
+                    Tags:
+                    {% for tag in post.tags.all %}
+                        <a href="#">{{ tag.name }}</a>
+                    {% empty %}
+                        none
+                    {% endfor %}
                 </div>
             </div>
             {% block sidebar %} {% include 'blog/sidebar.html' %} {% endblock sidebar %}
             <div class="col-md-8 card mb-4 mt-3">
                 <div class="card-body">
                     <!-- comments -->
+                    {% with comments.count as total_comments %}
+                        <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+                    {% endwith %}
 
-                        <h2>{{ comments.count }} comments</h2>
-
-                    {% for comment in comments %}
-                        <div class="comments" style="padding: 10px;">
-                            <p class="font-weight-bold">
-                                {{ comment.name }}
-                                <span class=" text-muted font-weight-normal">
-                                    said {{ comment.created_on|naturaltime }}
-                                </span>
-                            </p>
-                            {{ comment.body | linebreaks }}
-                        </div>
-                    {% endfor %}
+                    {% if not post.comments.all %}
+                        No comments yet
+                    {% else %}
+                        {% for comment in post.get_comments %}
+                            {% include 'blog/comment.html' with comment=comment %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-8 card mb-4  mt-3 ">
