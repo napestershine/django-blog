@@ -35,10 +35,11 @@
                         <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
                     {% endwith %}
 
-                    {% if not post.comments.all %}
+                    {% if not comments.all %}
                         No comments yet
                     {% else %}
-                        {% for comment in post.get_comments %}
+                        {% for comment in get_comments %}
+                            {{ comment.name }}
                             {% include 'blog/comment.html' with comment=comment %}
                         {% endfor %}
                     {% endif %}

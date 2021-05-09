@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from blog.sitemaps import PostSitemap
+import debug_toolbar
 
 sitemaps = {
     'posts': PostSitemap
@@ -30,6 +31,7 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('admin/', admin.site.urls),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
 
 if settings.DEBUG:
