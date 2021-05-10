@@ -26,41 +26,74 @@
                         none
                     {% endfor %}
                 </div>
+                <div class="my-3">
+                    <h3>Similar Posts</h3>
+                </div>
+                <div class="row">
+                    {% for post in similar_posts %}
+                        <div class="col-md-6 col-sm-6 col-lg-4 mb-3">
+                            <div class="card border-0">
+                                <div class="ratio ratio-16x9">
+                                    <img src="{{ post.image.url }}" class="rounded featured-image-list"
+                                         alt="{{ post.title }}" width="200" height="150">
+                                </div>
+                                <div class="card-body p-0 m-0 mt-2">
+                                    <h2 class="card-title h6 my-0 py-0">
+                                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                                    </h2>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                        <span>{{ post.publish.date }} by
+                            <b>{{ post.author }}</b></span>
+
+                                            <!-- <a href="" class="badge badge-light text-muted">{{post.tags.all|join:" "}}</a> -->
+
+
+                                        </small>
+                                    </p>
+                                    <!-- <p>{{post.body|truncatechars:100|linebreaks}}</p> -->
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p class="text-muted">There is no similar post yet</p>
+                    {% endfor %}
+                </div>
+                <div class="col-md-8 card mb-4 mt-3">
+                    <div class="card-body">
+                        <!-- comments -->
+                        {% with comments.count as total_comments %}
+                            <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+                        {% endwith %}
+
+                        {% if not comments.all %}
+                            No comments yet
+                        {% else %}
+                            {% for comment in get_comments %}
+                                {{ comment.name }}
+                                {% include 'blog/comment.html' with comment=comment %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-8 card mb-4  mt-3 ">
+                    <div class="card-body">
+                        {% if new_comment %}
+                            <div class="alert alert-success" role="alert">
+                                Your comment is awaiting moderation
+                            </div>
+                        {% else %}
+                            <h3>Leave a comment</h3>
+                            <form method="post" style="margin-top: 1.3em;">
+                                {{ comment_form | crispy }}
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
             {% block sidebar %} {% include 'blog/sidebar.html' %} {% endblock sidebar %}
-            <div class="col-md-8 card mb-4 mt-3">
-                <div class="card-body">
-                    <!-- comments -->
-                    {% with comments.count as total_comments %}
-                        <h2>{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
-                    {% endwith %}
-
-                    {% if not comments.all %}
-                        No comments yet
-                    {% else %}
-                        {% for comment in get_comments %}
-                            {{ comment.name }}
-                            {% include 'blog/comment.html' with comment=comment %}
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-8 card mb-4  mt-3 ">
-                <div class="card-body">
-                    {% if new_comment %}
-                        <div class="alert alert-success" role="alert">
-                            Your comment is awaiting moderation
-                        </div>
-                    {% else %}
-                        <h3>Leave a comment</h3>
-                        <form method="post" style="margin-top: 1.3em;">
-                            {{ comment_form | crispy }}
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-                        </form>
-                    {% endif %}
-                </div>
-            </div>
         </div>
     </div>
 {% endblock content %}
