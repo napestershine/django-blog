@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class="form-signin" action="{% url 'account:login' %}" method="post">
+        {% csrf_token %}
+        {#        <!--    <img class="mb-4" src="{% static '/account/images/logo.png' %}" alt="" width="100" height="100">-->#}
+        <h2 class="h3 mb-3 font-weight-normal">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email</label>
+        <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email" required
+               autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password"
+               required>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+
+        {% ifnotequal err_msg '' %}
+            <p class="text-danger">{{ err_msg }}</p>
+        {% endifnotequal %}
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        <div class="checkbox mb-3">
+            <label>
+                Don't have an account? <a href="{% url 'account:register' %}">Sign up</a>
+            </label>
+        </div>
+    </form>
+{% endblock %}

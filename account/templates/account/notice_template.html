@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class="form-signin" action="{% url 'login:register' %}">
+
+        {#<!--    <img class="mb-4" src="/static/images/logo.png" alt="" width="72" height="72">-->#}
+        <h1 class="h3 mb-3 font-weight-normal">Join the DevOps</h1>
+
+        {% ifnotequal msg  '' %}
+            <p style="color:red; font-size:20px;">  {{ msg }} </p>
+        {% endifnotequal %}
+
+    </form>
+{% endblock %}

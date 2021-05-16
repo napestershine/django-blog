@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account.apps.AccountConfig',
     'polls.apps.PollsConfig',
     'blog.apps.BlogConfig',
     'django.contrib.admin',
@@ -94,16 +95,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.account.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.account.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.account.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.account.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -151,3 +152,8 @@ INTERNAL_IPS = [
     '127.0.0.1',
     # ...
 ]
+
+EMAIL_HOST = "smtp.163.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "your_email_name@163.com"
+EMAIL_HOST_PASSWORD = "your_email_host_password"

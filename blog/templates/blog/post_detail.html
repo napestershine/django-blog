@@ -69,7 +69,7 @@
                         {% if not comments.all %}
                             No comments yet
                         {% else %}
-                            {% for comment in get_comments %}
+                            {% for comment in comments %}
                                 {{ comment.name }}
                                 {% include 'blog/comment.html' with comment=comment %}
                             {% endfor %}

@@ -85,6 +85,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
-
-    def get_comments(self):
-        return Comment.objects.filter(parent=self).filter(active=True)
