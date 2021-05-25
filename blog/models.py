@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils import timezone
+
+from django.conf import settings
 
 
 # Creating model manager
@@ -12,7 +13,7 @@ class PublishedManager(models.Manager):
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True)
     slug = models.CharField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_categories')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_categories')
     updated_on = models.DateTimeField(auto_now=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -23,7 +24,7 @@ class Category(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=200, unique=True)
     slug = models.CharField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_tags')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_tags')
     updated_on = models.DateTimeField(auto_now=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -39,7 +40,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now=True)
     created_on = models.DateTimeField(auto_now_add=True)
     published_on = models.DateTimeField(default=timezone.now)

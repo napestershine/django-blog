@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'shop.apps.ShopConfig',
     'account.apps.AccountConfig',
     'polls.apps.PollsConfig',
     'blog.apps.BlogConfig',
@@ -76,13 +77,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+AUTH_USER_MODEL = 'account.Account'
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'polls',
+        'NAME': 'ecommerce',
         'USER': 'manojkumar',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
@@ -133,7 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Location of static files
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
-
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
